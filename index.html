@@ -3,6 +3,9 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <link type="text/css" rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/d3.v3.min.js"></script>
   </head>
     <body>
@@ -12,7 +15,8 @@
       </div>
       <div id="side-footer">
         <div class="hint">
-          <p>This is a demo meant to aid the visitor of this webpage in their understanding of lifting trees. Lifting trees are discussed in more theoretical detail in the following works.</p><br>
+          <p>This is a demo meant to aid the visitor of this webpage in their understanding of lifting trees. Lifting trees are discussed in more theoretical detail in the following <a href="http://github.com">analysis</a> (the d-ary construction
+          is entirely analogous to that of the BIT).</p><br>
           <p>This is an adaptation of Mike Bostock's D3 tree layout <a href="http://mbostock.github.io/d3/talk/20111018/tree.html">example</a>.</p><br>
           <p>Created by Alex Francis in August 2016.</p>
         </div>
@@ -20,10 +24,46 @@
       <div id="button-footer">
         <nav>
           <ul class="nav">
-            <li><a href="#" class="icon-flow-tree"></a></li>
-            <li><a href="#" class="icon-up"></a></li>
+            <li><a href="#" class="icon-flow-tree" data-toggle="modal" data-target="#createModal"></a></li>
+            <li><a href="#" class="icon-up" onclick="lift()"></a></li>
           </ul>
         </nav>
+      </div>
+      <div id="createModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Create Random Recursive Tree</h4>
+            </div>
+            <div class="modal-body">
+              <p>Choose the branching factor and the number of nodes in the tree:</p>
+              <div class="modal-node-question">
+                Number of nodes in the tree (<i>n</i>) - Capped at 1000<br>
+                <input id="num-nodes" type="number" min="0" max="1000" step="1" value="5">
+              </div><br>
+              <div class="modal-type-question">
+                Type of Structure<br>
+                <input type="radio" id="rrtButton" name="type" value="rrt" checked> Random Recursive Tree (<i>RRT</i>)<br>
+                <input type="radio" id="daryButton" name="type" value="dary"> d-ary <br>
+              </div>
+              <div style="visibility:hidden" id="daryMenu" class="modal-branching-factor-question">
+                Branching factor (<i>d</i>)<br>
+                <input type="radio" id="binaryButton" name="branchingFactor" value="binary" checked> Binary (<i>d = 2</i>)<br>
+                <input type="radio" id="ternaryButton" name="branchingFactor" value="ternary"> Ternary (<i>d = 3</i>)<br>
+                <input type="radio" id="anyButton" name="branchingFactor" value="any"> Any (no restriction on <i>d</i>)<br>
+                <input type="radio" id="otherButton" name="branchingFactor" value="other"\> Other (specific <i>d > 3</i>)<br>
+                <div class="hidden-entry">
+                  <input style="visibility:hidden" id="branchFactorInput" name="branchFactorInput" type="number" min="0" max="1000" step="1" value="4"><br><br>
+                </div>
+              </div>
+              <input id="options-submit" type="submit" class="btn btn-success" value="Create Tree">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <script src="js/d3tree.js"></script>

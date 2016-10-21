@@ -134,6 +134,7 @@ class BinaryIncreasingTree(object):
         return min_wait_time
 
     def __str__(self):
+        """Print Tree using DFS."""
         printed_tree = ""
         stack = [(self, 0)]
         # DFS

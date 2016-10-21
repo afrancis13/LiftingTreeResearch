@@ -27,8 +27,15 @@ var node = svg.selectAll(".node"),
 var type = getParameterByName("type");
 var nodeLimit = getParameterByName("limit");
 
+if (type == null) {
+  type = "rrt";
+}
+
+var branchingFactor;
 if (type == "dary") {
-  var branchingFactor = getParameterByName("d");  
+  branchingFactor = getParameterByName("d");  
+} else {
+  branchingFactor = null;
 }
 
 var duration = 300,
